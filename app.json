@@ -1,0 +1,58 @@
+{
+  "addons": [
+    "cleardb",
+    "cleardb"
+  ],
+  "buildpacks": [
+    {
+      "url": "heroku/ruby"
+    }
+  ],
+  "env": {
+    "CLEARDB_DATABASE_URL": {
+      "required": true
+    },
+    "CLEARDB_IVORY_URL": {
+      "required": true
+    },
+    "LANG": {
+      "required": true
+    },
+    "MERCADO_PAGO_ID": {
+      "required": true
+    },
+    "MERCADO_PAGO_SECRET": {
+      "required": true
+    },
+    "PAG_HIPER_TOKEN": {
+      "required": true
+    },
+    "PAGHIPER_API_KEY": {
+      "required": true
+    },
+    "RACK_ENV": {
+      "required": true
+    },
+    "RAILS_ENV": {
+      "required": true
+    },
+    "RAILS_LOG_TO_STDOUT": {
+      "required": true
+    },
+    "RAILS_SERVE_STATIC_FILES": {
+      "required": true
+    },
+    "SECRET_KEY_BASE": {
+      "required": true
+    }
+  },
+  "formation": {
+    "web": {
+      "quantity": 1
+    }
+  },
+  "name": "hasum-api",
+  "scripts": {
+  },
+  "stack": "heroku-18"
+}
