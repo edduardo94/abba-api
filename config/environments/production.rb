@@ -90,7 +90,7 @@ Rails.application.configure do
      :password       => ENV['SENDGRID_API_KEY'],
      :enable_starttls_auto => true
    }
-   config.action_mailer.default_url_options = { :host => 'https://hasum-api.herokuapp.com' }
+   config.action_mailer.default_url_options = { :host => 'https://abba-api.herokuapp.com' }
    config.action_mailer.delivery_method = :smtp 
 
   if ENV["RAILS_LOG_TO_STDOUT"].present?
