@@ -37,27 +37,27 @@ class BonusReferralJob
   def type_two(index)
     case index
     when 1
-      80
+      40
     else
-      5
+      2.5
     end
   end
 
   def type_three(index)
     case index
     when 1
-      160
+      80
     else
-      10
+      5
     end
   end
 
   def type_four(index)
     case index
     when 1
-      320
+      160
     else
-      20
+      10
     end
   end
 end

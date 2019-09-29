@@ -78,11 +78,11 @@ class Order < ApplicationRecord
 
   def verify_activation
     activation_value = if user.user_type == 2
-                         500
+                         250
                        elsif user.user_type == 3
-                         1000
+                         500
                        elsif user.user_type == 4
-                         2000
+                         1000
                        end
 
     if !user.first_activated? && value - frete_value < activation_value

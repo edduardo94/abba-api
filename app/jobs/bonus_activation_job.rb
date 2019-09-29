@@ -7,7 +7,7 @@ class BonusActivationJob
   end
 
   def run
-    if @index < 11
+    if @index < 9
       if @user.commission && @user.activated?
         commission = (@user.commission.value || 0) + 4
         commission = 0 if commission.negative?
