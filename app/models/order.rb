@@ -77,17 +77,17 @@ class Order < ApplicationRecord
   private
 
   def verify_activation
-    # activation_value = if user.user_type == 2
-    #                      500
-    #                    elsif user.user_type == 3
-    #                      1000
-    #                    elsif user.user_type == 4
-    #                      2000
-    #                    end
+    activation_value = if user.user_type == 2
+                         500
+                       elsif user.user_type == 3
+                         1000
+                       elsif user.user_type == 4
+                         2000
+                       end
 
-    # if !user.first_activated? && value - frete_value < activation_value
-    #   raise 'Para concluir sua ativação o valor dos seus produtos precisa ser superior a ' + helper.number_to_currency(activation_value, unit: 'R$ ', separator: ',', delimiter: '.')
-    # end
+    if !user.first_activated? && value - frete_value < activation_value
+      raise 'Para concluir sua ativação o valor dos seus produtos precisa ser superior a ' + helper.number_to_currency(activation_value, unit: 'R$ ', separator: ',', delimiter: '.')
+    end
 
     if !user.activated? && (value - frete_value) < 210
       raise 'Para concluir sua ativação o valor dos seus produtos precisa ser superior a R$ 210,00'
@@ -102,8 +102,10 @@ class Order < ApplicationRecord
     end
   end
 
-  def check_status_update  
-    if status_was.to_i == 5 && ![2, 3, 4, 6, 7, 8, 10, 12, 13].include?(status.to_i)
+  def check_status_update
+    if status_was.to_i == 2
+      raise 'Não é possível atualizar o status de um pedido já cancelado'
+    elsif status_was.to_i == 5 && ![2, 3, 4, 6, 7, 8, 10, 12, 13].include?(status.to_i)
       raise 'Mudança de status não permitida'
     end
   end
@@ -121,9 +123,9 @@ class Order < ApplicationRecord
     end
   end
 
-  def do_bonus_networking    
-    if user.host
-      if is_paid && !commission_released 
+  def do_bonus_networking
+    if user.host && !is_indication
+      if is_paid && !commission_released && !first_payed_month_order?
         puts "PEDIDO: ##{id} R$ #{value}| USUARIO: #{user.id} | ADD BONUS DE REDE #{value}"
         job = BonusNetworkingJob.new(user.host, value - frete_value)
         job.run
@@ -138,7 +140,7 @@ class Order < ApplicationRecord
   end
 
   def do_activate_bonus
-    if user.host
+    if user.host && !is_indication
       if is_paid && first_payed_month_order?
         job = BonusActivationJob.new(user.host, 1)
         job.run
@@ -147,13 +149,12 @@ class Order < ApplicationRecord
   end
 
   def do_referral_bonus_job
-    #comenta isso aqui por enquanto
-    # if user.host && is_indication
-    #   if is_paid
-    #     job = BonusReferralJob.new(user.host, user.user_type, 1)
-    #     job.run
-    #   end
-    # end
+    if user.host && is_indication
+      if is_paid
+        job = BonusReferralJob.new(user.host, user.user_type, 1)
+        job.run
+      end
+    end
   end
 
   def first_payed_month_order?
