@@ -17,7 +17,7 @@ amazon:
   access_key_id: <%= ENV['KEY_ID'] %>
   secret_access_key: <%= ENV['SECRET_KEY'] %>
   region: us-east-1
-  bucket: abba-images
+  bucket: abba-product-images
 
 # Remember not to checkin your GCS keyfile to a repository
 # google:
