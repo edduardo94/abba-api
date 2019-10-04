@@ -28,7 +28,7 @@ module V2
     end
 
     def index
-      @orders = current_user.orders.where(order_type: [1,2]).order(:created_at)
+      @orders = current_user.orders.where(order_type: [1, 2]).order(:created_at)
       json_response(@orders)
     end
 
@@ -44,11 +44,12 @@ module V2
           @pacote.adicionar_item(item)
         end
       end
-      frete = Correios::Frete::Calculador.new cep_origem: '60711055',
+      frete = Correios::Frete::Calculador.new cep_origem: '61925440',
                                               cep_destino: frete_params[:cep_destino],
                                               encomenda: @pacote
-      servicos = frete.calcular :sedex, :pac
-      json_response(servicos)
+      pac = frete.calcular :pac
+      sedex = frete.calcular :sedex
+      json_response(sedex: sedex, pac: pac)
       end
 
     private
@@ -90,7 +91,8 @@ module V2
       when 2
         order.update!(status: 9)
       when 3
-        generate_pagar_me(order)
+        order.update!(status: 9)
+        # generate_pagar_me(order)
       end
     end
 

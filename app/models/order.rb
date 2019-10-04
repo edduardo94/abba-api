@@ -18,7 +18,7 @@
 # #######PAYMENT#######
 # 1 boleto
 # 2 deposito
-# 3 creditCard
+# 3 picpay
 
 # #######TYPE#######
 # 1 sale
