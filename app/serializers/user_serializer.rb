@@ -3,8 +3,8 @@
 class UserSerializer < ActiveModel::Serializer
   attributes :id, :name, :email,
              :cpf, :gender, :birth_date, :cellphone, :phone,
-             :user_type, :activation_status, :direct_hosted_users_count, 
-             :first_activated
+             :user_type, :activation_status, :direct_hosted_users_count,
+             :first_activated, :user_type
 
   has_many :addresses
 

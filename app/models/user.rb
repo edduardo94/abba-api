@@ -6,7 +6,7 @@ class User < ApplicationRecord
   # 1 - consumidor
   # 2 - revendedor
   # 3 - representante
-  # 4 - socio
+  # 4 - Master
   # encrypt password
   has_secure_password
 
@@ -39,7 +39,7 @@ class User < ApplicationRecord
 
   def activated?
     @orders = orders.this_month
-    @orders&.each do |order|
+    @orders&.each do |order|      
       return true if [3, 4, 5, 6, 7, 8].include?(order.status)
     end
     false
