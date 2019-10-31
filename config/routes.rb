@@ -52,6 +52,7 @@ Rails.application.routes.draw do
     put  'users/address/update', to: 'users#update_address'
     put  'users/:id', to: 'users#update'
     get  'users/network/users', to: 'users#load_hosted_users'
+    get  'users/network/users/:id', to: 'users#load_hosted_private_users'
 
     ####ACTIVATIONS####
     post 'activations', to: 'activations#create'

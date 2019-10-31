@@ -69,6 +69,11 @@ module V2
       json_response(users)
     end
 
+    def load_hosted_private_users      
+      users = User.where(host_user_id: params.require(:id))
+      json_response(users)
+    end
+
     def create_address
       address = add_address(@user.id, address_params_alone)
       json_response(address)
