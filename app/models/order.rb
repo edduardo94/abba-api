@@ -38,7 +38,7 @@ class Order < ApplicationRecord
 
   scope :this_month, lambda {
     where(created_at:
-      Time.parse('2019-10-10')..Time.parse('2019-11-10'))
+      Time.parse('2019-11-13')..Time.parse('2019-12-10'))
   }
 
   before_create :set_uuid, :set_type
