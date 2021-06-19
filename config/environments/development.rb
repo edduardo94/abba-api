@@ -37,14 +37,13 @@ Rails.application.configure do
 
   config.action_mailer.perform_caching = false
 
-  config.action_mailer.smtp_settings = {       
+  config.action_mailer.smtp_settings = {
     :enable_starttls_auto => true,  #this is the important stuff!
     :address        => 'smtp.sendgrid.net',
-    :port           => 587,    
+    :port           => 587,
     :authentication => :plain,
     :user_name      => 'apikey',
     :password       => ENV['SENDGRID_API_KEY'],
-    :enable_starttls_auto => true
   }
   config.action_mailer.default_url_options = { :host => 'https://hasum-api.herokuapp.com' }
   config.action_mailer.delivery_method = :smtp
